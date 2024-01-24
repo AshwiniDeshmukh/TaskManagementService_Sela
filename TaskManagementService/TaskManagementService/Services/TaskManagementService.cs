@@ -17,7 +17,7 @@ namespace TaskManagementService
         private readonly ILogger<TaskManagementService> _logger;
 
         public TaskManagementService(
-            ITaskManagementRepository taskManagementRepository
+            ITaskManagementRepository taskManagementRepository,
             ILogger<TaskManagementService> logger)
         {
             _taskManagementRepo = taskManagementRepository;
@@ -39,11 +39,11 @@ namespace TaskManagementService
         //}
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<UserTask>> GetUserTasks(Guid userKey, CancellationToken token, bool? includeRemoved = null)
+        public  IEnumerable<UserTask> GetUserTasks(Guid userKey, CancellationToken token, bool? includeRemoved = null)
         {
             try
             {
-                return await _taskManagementRepo.GetUserTasksAsync(userKey, token, includeRemoved);
+                return  _taskManagementRepo.GetUserTasksAsync(userKey, token, includeRemoved);
             }
             catch (Exception e)
             {
@@ -52,13 +52,13 @@ namespace TaskManagementService
         }
 
         /// <inheritdoc/>
-        public async Task<Guid> CreateUserTask(Guid userKey, CreateUserTaskInfo info, CancellationToken token)
+        public  Guid CreateUserTask(Guid userKey, CreateUserTaskInfo info, CancellationToken token)
         {
             
             try
             {
-                var patientAllergyKey = await _taskManagementRepo.CreateUserTaskAsync(userKey, info, token);
-                return patientAllergyKey;
+                var userTaskKey =  _taskManagementRepo.CreateUserTaskAsync(userKey, info, token);
+                return userTaskKey;
             }
          
             catch (Exception e)

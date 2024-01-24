@@ -13,7 +13,7 @@ namespace TaskManagementService
             Title = title;
             TaskStatusType = taskStatus;
             TaskType = taskType;
-            TaskDueDate=taskDueDate
+            TaskDueDate = taskDueDate;
         }
 
         /// <summary>

@@ -7,14 +7,14 @@ namespace TaskManagementService
 {
     public interface ITaskManagementRepository
     {
-        /// <summary>
-        /// Search for tasks with the given criteria.
-        /// </summary>
-        /// <param name="userKey">The User to search the Tasks For.</param>
-        /// <param name="criteria">The criteria used to search for the tasks.</param>
-        /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
-        /// <returns>Paged response containing the task that match the given criteria.</returns>
-        Task<TaskEntity> SearchUserTasksAsync(Guid userKey, CancellationToken token);
+        ///// <summary>
+        ///// Search for tasks with the given criteria.
+        ///// </summary>
+        ///// <param name="userKey">The User to search the Tasks For.</param>
+        ///// <param name="criteria">The criteria used to search for the tasks.</param>
+        ///// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
+        ///// <returns>Paged response containing the task that match the given criteria.</returns>
+        //Task<TaskEntity> SearchUserTasksAsync(Guid userKey, CancellationToken token);
 
         /// <summary>
         /// Retrieve the user tasks with the given keys.
@@ -23,7 +23,7 @@ namespace TaskManagementService
         /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
         /// <param name="includeRemoved">Indicates if removed records should be included in results.</param>
         /// <returns>The tasks with the given keys.</returns>
-        Task<IEnumerable<UserTask>> GetUserTasksAsync(Guid userKey, CancellationToken token, bool? includeRemoved = false);
+        IEnumerable<UserTask> GetUserTasksAsync(Guid userKey, CancellationToken token, bool? includeRemoved = false);
 
         /// <summary>
         /// Creates a task for the us with the given key.
@@ -32,7 +32,7 @@ namespace TaskManagementService
         /// <param name="info">The information used to create the task.</param>
         /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
         /// <returns>The unique identifier of the created task.</returns>
-        Task<Guid> CreateUserTaskAsync(Guid userKey, CreateUserTaskInfo info, CancellationToken token);
+       Guid CreateUserTaskAsync(Guid userKey, CreateUserTaskInfo info, CancellationToken token);
 
         /// <summary>
         /// Updates a task with the given info.

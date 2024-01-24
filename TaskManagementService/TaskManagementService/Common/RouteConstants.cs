@@ -2,7 +2,7 @@
 {
     public class RouteConstants
     {
-        public class Patient
+        public class TaskManagement
         {
             public const string Root = "TaskManagement";
 

@@ -10,13 +10,13 @@ namespace TaskManagementService
     /// </summary>
     public interface ITaskManagementService
     {
-        /// <summary>
-        /// Searches tasks by the given criteria.
-        /// </summary>
-        /// <param name="token">This is provided by the framework to notify when a request is cancelled.</param>
-        /// <returns>The results of the search.</returns>
+        ///// <summary>
+        ///// Searches tasks by the given criteria.
+        ///// </summary>
+        ///// <param name="token">This is provided by the framework to notify when a request is cancelled.</param>
+        ///// <returns>The results of the search.</returns>
      
-        Task<UserTask> SearchUserTasks(CancellationToken token);
+        //Task<UserTask> SearchUserTasks(CancellationToken token);
 
         /// <summary>
         /// Gets list of User Tasks
@@ -25,7 +25,7 @@ namespace TaskManagementService
         /// <param name="includeRemoved">Indicates if a removed patient allergy should be returned if available.</param>
         /// <param name="token">This is provided by the framework to notify when a request is cancelled.</param>
         /// <returns>returns Task of <see cref="UserTask"/></returns>
-        Task<IEnumerable<UserTask>> GetUserTasks(Guid userKey, CancellationToken token, bool? includeRemoved = null);
+        IEnumerable<UserTask> GetUserTasks(Guid userKey, CancellationToken token, bool? includeRemoved = null);
 
         /// <summary>
         /// Creates a task with the given info
@@ -34,7 +34,7 @@ namespace TaskManagementService
         /// <param name="info">Information about the new task</param>
         /// <param name="token">This is provided by the framework to notify when a request is cancelled.</param>
         /// <returns>Task Key of the newly user Task</returns>
-        Task<Guid> CreateUserTask(Guid userKey, CreateUserTaskInfo info, CancellationToken token);
+        Guid CreateUserTask(Guid userKey, CreateUserTaskInfo info, CancellationToken token);
 
         /// <summary>
         /// Updates the task with the given key.

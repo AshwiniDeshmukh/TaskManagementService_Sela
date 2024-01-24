@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,7 +12,6 @@ namespace TaskManagementService.Controllers
     /// Manages operations related to Task for an user.
     /// </summary>
 
-    [Authorize]
     public class TaskManagementController : Controller
     {
         private readonly ITaskManagementService _service;
@@ -21,6 +21,8 @@ namespace TaskManagementService.Controllers
             _service = service;
         }
 
+        [HttpPost]
+        [Route("UserTask/{userKey:guid}")]
         /// <summary>
         /// Create a Task associated with an User. 
         /// </summary>
@@ -29,10 +31,10 @@ namespace TaskManagementService.Controllers
         /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
         /// <returns>A list of Tasks related to the User.</returns>
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateUserTask([FromRoute] Guid userKey, CreateUserTask createUserTaskRequest,
+        public  Guid CreateUserTask([FromRoute] Guid userKey, CreateUserTask createUserTaskRequest,
             CancellationToken token)
         {
-            var userTaskKey = await _service.CreateUserTask(userKey,
+            var userTaskKey =  _service.CreateUserTask(userKey,
                 new CreateUserTaskInfo { Title=createUserTaskRequest.Title, TaskDescription=createUserTaskRequest.TaskDescription, TaskStatusType=createUserTaskRequest.TaskStatusType
                 , TaskType=createUserTaskRequest.TaskType, TaskDueDate=createUserTaskRequest.TaskDueDate
             } , token);
@@ -41,6 +43,8 @@ namespace TaskManagementService.Controllers
 
         }
 
+        [HttpPut]
+        [Route("UserTask/{userTaskKey:guid}")]
         /// <summary>
         /// Updates associated with an User. 
         /// </summary>
@@ -49,7 +53,7 @@ namespace TaskManagementService.Controllers
         /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
         /// <returns>A list of Tasks related to the User.</returns>
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateUserTask([FromRoute] Guid userTaskKey, CreateUserTask createUserTaskRequest,
+        public async Task<Boolean> UpdateUserTask([FromRoute] Guid userTaskKey, CreateUserTask createUserTaskRequest,
             CancellationToken token)
         {
            await _service.UpdateUserTask(userTaskKey, new UpdateUserTaskInfo
@@ -62,26 +66,27 @@ namespace TaskManagementService.Controllers
                TaskDueDate = createUserTaskRequest.TaskDueDate
            }, token);
 
-            return "";
+            return true;
 
         }
 
+        [HttpGet]
+        [Route("UserTask/{userKey:guid}")]
         /// <summary>
         /// Retrieves list of Tasks associated with an User. 
         /// </summary>
         /// <param name="userKey">The unique identifier of the user to fetch list of Tasks for.</param>
-        /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
         /// <returns>A list of Tasks related to the User.</returns>
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetUserTasks([FromRoute] Guid userKey,
-            CancellationToken token)
+        public IEnumerable<UserTask> GetUserTasks([FromRoute] Guid userKey)
         {
-            var userTasks = await _service.GetUserTasks(userKey, token);
+            CancellationToken Text = new CancellationToken() ;
+            var userTasks =  _service.GetUserTasks(userKey, Text);
 
             return userTasks;
 
         }
 
+        [HttpPatch("UserTask/{userTaskKey:guid}/remove")]
         /// <summary>
         /// Removes the Task associated with an User. 
         /// </summary>
@@ -89,15 +94,16 @@ namespace TaskManagementService.Controllers
         /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
         /// <returns>A list of Tasks related to the User.</returns>
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteUserTask([FromRoute] Guid userTaskKey,
+        public async Task<Boolean> DeleteUserTask([FromRoute] Guid userTaskKey,
             CancellationToken token)
         {
             await _service.RemoveUserTask(userTaskKey, token);
 
-            return Respond.Ok(MapResponses());
+            return true;
 
         }
 
+        [HttpPatch("UserTask/{userTaskKey:guid}/restore")]
         /// <summary>
         /// Restores task associated with an User. 
         /// </summary>
@@ -105,12 +111,12 @@ namespace TaskManagementService.Controllers
         /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
         /// <returns>A list of Tasks related to the User.</returns>
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RestoreUserTask([FromRoute] Guid userTaskKey,
+        public async Task<Boolean> RestoreUserTask([FromRoute] Guid userTaskKey,
             CancellationToken token)
         {
             await _service.RestoreUserTask(userTaskKey, token);
 
-            return Respond.Ok(MapResponses());
+            return true;
 
         }
     }

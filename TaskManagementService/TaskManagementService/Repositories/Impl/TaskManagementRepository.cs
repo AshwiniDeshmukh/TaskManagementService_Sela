@@ -4,21 +4,23 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using TaskManagementService;
+using TaskManagementService.Models;
+using Task = TaskManagementService.Models.Task;
 
 namespace WCTS.PatientService.Repositories.Impl
 {
-    internal class TaskManagementRepository : RepositoryBase, ITaskManagementRepository
+    internal class TaskManagementRepository : ITaskManagementRepository
     {
 
-    //    private readonly IDatabase _database;
-
+        private readonly Database _database;
+        public IEnumerable<Task> Tasks { get; set; }
         /// <summary>
         /// This repo class does use the PAC BaseRepository (IQueryCallFactory)
         /// </summary>
-        public TaskManagementRepository(IQueryCallFactory callFactory, IDatabase database, ICurrentUser currentUser)
-            : base(callFactory, database)
+        public TaskManagementRepository(Database db)
+            
         {
-            _database = Validator.CheckIsNotNull(database, nameof(database));
+            _database = db;   
         }
 
         ///// <inheritdoc/>
@@ -30,36 +32,37 @@ namespace WCTS.PatientService.Repositories.Impl
         //}
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<UserTask>> GetUserTasksAsync(Guid userKey, CancellationToken token, bool? includeRemoved = false)
+        public  IEnumerable<UserTask> GetUserTasksAsync(Guid userKey, CancellationToken token, bool? includeRemoved = false)
         {
-            var entities = await QueryAsync(new GetUserTaskDelegate(QueryScripts, userKey, includeRemoved),
-                token);
-
-            return entities.ToModels();
+            Tasks =_database.Tasks.ToList();
+            return new List<UserTask> { };
         }
 
         /// <inheritdoc/>
-        public async Task<Guid> CreateUserTaskAsync(Guid userKey, CreateUserTaskInfo info, CancellationToken token)
+        public  Guid CreateUserTaskAsync(Guid userKey, CreateUserTaskInfo info, CancellationToken token)
         {
-            return await QueryAsync(new CreateUserTaskDelegate(QueryScripts, userKey, info), token);
+            Task task = new() { Title = info.Title, Description=info.TaskDescription };
+            _database.Tasks.Add(task);
+             _database.SaveChangesAsync();
+            return new Guid {  };
         }
 
         /// <inheritdoc/>
         public async System.Threading.Tasks.Task UpdateUserTaskAsync(Guid userTaskKey, UpdateUserTaskInfo info, CancellationToken token)
         {
-            await QueryAsync(new UpdateUserTaskDelegate(QueryScripts, userTaskKey, info), token);
+            
         }
 
         /// <inheritdoc/>
         public async System.Threading.Tasks.Task RemoveUserTaskAsync(Guid userTaskKey, CancellationToken token)
         {
-            await QueryAsync(new RemoveUserTaskDelegate(QueryScripts, userTaskKey), token);
+            
         }
 
         /// <inheritdoc/>
-        public async System.Threading.Tasks.Task RestoreDiagnosisAsync(Guid userTaskKey, CancellationToken token)
+        public async System.Threading.Tasks.Task RestoreUserTaskAsync(Guid userTaskKey, CancellationToken token)
         {
-            await QueryAsync(new RestoreUserTaskDelegate(QueryScripts, userTaskKey), token);
+            
         }
     }
 }
