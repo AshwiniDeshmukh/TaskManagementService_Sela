@@ -33,8 +33,8 @@ namespace TaskManagementService
         /// <param name="userKey">The unique identifier of the user for which task is created.</param>
         /// <param name="info">Information about the new task</param>
         /// <param name="token">This is provided by the framework to notify when a request is cancelled.</param>
-        /// <returns>Allergy Key of the newly created allergy</returns>
-        Task<Guid> CreateUserTask(Guid userKey, CreatePatientAllergyInfo info, CancellationToken token);
+        /// <returns>Task Key of the newly user Task</returns>
+        Task<Guid> CreateUserTask(Guid userKey, CreateUserTaskInfo info, CancellationToken token);
 
         /// <summary>
         /// Updates the task with the given key.
@@ -42,21 +42,21 @@ namespace TaskManagementService
         /// <param name="userTaskKey">The unique identifier of the user task to update.</param>
         /// <param name="info">The data used to update the task.</param>
         /// <param name="token">This is provided by the framework to notify when a request is cancelled.</param>
-        System.Threading.Tasks.Task UpdateUserTask(Guid userTaskKey, UpdatePatientAllergyInfo info, CancellationToken token);
+        System.Threading.Tasks.Task UpdateUserTask(Guid userTaskKey, UpdateUserTaskInfo info, CancellationToken token);
 
         /// <summary>
         /// Removes the task with the given key.
         /// </summary>
         /// <param name="userTaskKey">The unique identifier of the user task to remove.</param>
         /// <param name="token"></param>
-        System.Threading.Tasks.Task RemovePatientAllergy(Guid userTaskKey, CancellationToken token);
+        System.Threading.Tasks.Task RemoveUserTask(Guid userTaskKey, CancellationToken token);
 
         /// <summary>
         /// Restores the patient allergy with the given key.
         /// </summary>
         /// <param name="userTaskKey">The unique identifier of the user task to restore.</param>
         /// <param name="token"></param>
-        System.Threading.Tasks.Task RestorePatientAllergy(Guid userTaskKey, CancellationToken token);
+        System.Threading.Tasks.Task RestoreUserTask(Guid userTaskKey, CancellationToken token);
 
     
     }

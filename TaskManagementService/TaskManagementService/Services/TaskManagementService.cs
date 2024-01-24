@@ -13,37 +13,37 @@ namespace TaskManagementService
     /// </summary>
     internal class TaskManagementService : ITaskManagementService
     {
-        private readonly IPatientAllergyRepository _patientAllergyRepo;
+        private readonly ITaskManagementRepository _taskManagementRepo;
         private readonly ILogger<TaskManagementService> _logger;
 
         public TaskManagementService(
-            IPatientAllergyRepository patientAllergyRepository
+            ITaskManagementRepository taskManagementRepository
             ILogger<TaskManagementService> logger)
         {
-            _patientAllergyRepo = Validator.ValidateValue(patientAllergyRepository, nameof(patientAllergyRepository));
+            _taskManagementRepo = taskManagementRepository;
             _logger = logger;
         }
 
-        /// <inheritdoc/>
-        public async Task<UserTask> SearchUserTasks(UserTask searchCriteria, CancellationToken token)
-        {
+        ///// <inheritdoc/>
+        //public async Task<UserTask> SearchUserTasks(UserTask searchCriteria, CancellationToken token)
+        //{
             
-            try
-            {
-                return await _patientAllergyRepo.SearchPatientAllergiesAsync(searchCriteria, token);
-            }
-            catch (Exception e)
-            {
-                //throw ($"Error search patient allergies with criteria: [{searchCriteria}].", e);
-            }
-        }
+        //    try
+        //    {
+        //        return await _taskManagementRepo.SearchUserTasksAsync(token);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        //throw ($"Error search patient allergies with criteria: [{searchCriteria}].", e);
+        //    }
+        //}
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<UserTask>> GetUserTasks(IEnumerable<Guid> userKeys, CancellationToken token, bool? includeRemoved = null)
+        public async Task<IEnumerable<UserTask>> GetUserTasks(Guid userKey, CancellationToken token, bool? includeRemoved = null)
         {
             try
             {
-                return await _patientAllergyRepo.GetPatientAllergiesAsync(userKeys, token, includeRemoved);
+                return await _taskManagementRepo.GetUserTasksAsync(userKey, token, includeRemoved);
             }
             catch (Exception e)
             {
@@ -52,13 +52,12 @@ namespace TaskManagementService
         }
 
         /// <inheritdoc/>
-        public async Task<Guid> CreateUserTask(Guid userKey, CreatePatientAllergyInfo info, CancellationToken token)
+        public async Task<Guid> CreateUserTask(Guid userKey, CreateUserTaskInfo info, CancellationToken token)
         {
-            Validator.ValidateValue(info, nameof(info));
+            
             try
             {
-               
-                var patientAllergyKey = await _patientAllergyRepo.CreatePatientAllergyAsync(userKey, info, token);
+                var patientAllergyKey = await _taskManagementRepo.CreateUserTaskAsync(userKey, info, token);
                 return patientAllergyKey;
             }
          
@@ -69,14 +68,12 @@ namespace TaskManagementService
         }
 
         /// <inheritdoc/>
-        public async System.Threading.Tasks.Task UpdateUserTask(Guid userTaskKey, UpdatePatientAllergyInfo info, CancellationToken token)
+        public async System.Threading.Tasks.Task UpdateUserTask(Guid userTaskKey, UpdateUserTaskInfo info, CancellationToken token)
         {
             try
             {
-                    var oldAllergy = (await _patientAllergyRepo.GetPatientAllergiesAsync(new[] { userTaskKey }, token)).First();
-                    await _patientAllergyRepo.UpdatePatientAllergyAsync(userTaskKey, info, token);
+                    await _taskManagementRepo.UpdateUserTaskAsync(userTaskKey, info, token);
 
-                    var newAllergy = (await _patientAllergyRepo.GetPatientAllergiesAsync(new[] { userTaskKey }, token)).First();
   
             }
             catch (Exception e)
@@ -90,9 +87,7 @@ namespace TaskManagementService
         {
             try
             {
-                var oldAllergy = (await _patientAllergyRepo.GetPatientAllergiesAsync(new[] { userTaskKey }, token)).First();
-
-                await _patientAllergyRepo.RemovePatientAllergyAsync(userTaskKey, token);
+                await _taskManagementRepo.RemoveUserTaskAsync(userTaskKey, token);
 
             }
             catch (Exception e)
@@ -106,9 +101,7 @@ namespace TaskManagementService
         {
             try
             {
-                var oldAllergy = (await _patientAllergyRepo.GetPatientAllergiesAsync(new[] { userTaskKey }, token, true)).First();
-
-                await _patientAllergyRepo.RestorePatientAllergyAsync(userTaskKey, token);
+                await _taskManagementRepo.RestoreUserTaskAsync(userTaskKey, token);
 
             }
             catch (Exception e)

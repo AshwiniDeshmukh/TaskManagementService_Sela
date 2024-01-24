@@ -23,7 +23,7 @@ namespace TaskManagementService
         /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
         /// <param name="includeRemoved">Indicates if removed records should be included in results.</param>
         /// <returns>The tasks with the given keys.</returns>
-        Task<IEnumerable<TaskEntity>> GetUserTasksAsync(Guid userKey, CancellationToken token, bool? includeRemoved = false);
+        Task<IEnumerable<UserTask>> GetUserTasksAsync(Guid userKey, CancellationToken token, bool? includeRemoved = false);
 
         /// <summary>
         /// Creates a task for the us with the given key.
@@ -32,7 +32,7 @@ namespace TaskManagementService
         /// <param name="info">The information used to create the task.</param>
         /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
         /// <returns>The unique identifier of the created task.</returns>
-        Task<Guid> CreateUserTaskAsync(Guid userKey, CreateDiagnosisInfo info, CancellationToken token);
+        Task<Guid> CreateUserTaskAsync(Guid userKey, CreateUserTaskInfo info, CancellationToken token);
 
         /// <summary>
         /// Updates a task with the given info.
@@ -40,7 +40,7 @@ namespace TaskManagementService
         /// <param name="userTaskKey">The unique identifier of the task to update.</param>
         /// <param name="info">The information used to update the task</param>
         /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
-        System.Threading.Tasks.Task UpdateUserTaskAsync(Guid userTaskKey, UpdateDiagnosisInfo info, CancellationToken token);
+        System.Threading.Tasks.Task UpdateUserTaskAsync(Guid userTaskKey, UpdateUserTaskInfo info, CancellationToken token);
 
         /// <summary>
         /// Deletes a UserTask.

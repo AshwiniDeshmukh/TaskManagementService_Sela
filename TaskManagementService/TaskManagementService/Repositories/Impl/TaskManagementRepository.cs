@@ -21,16 +21,16 @@ namespace WCTS.PatientService.Repositories.Impl
             _database = Validator.CheckIsNotNull(database, nameof(database));
         }
 
-        /// <inheritdoc/>
-        public async Task<TaskEntity> SearchUserTasksAsync(Guid userKey, SearchDiagnosesRequest criteria, CancellationToken token)
-        {
-            var userTasks = await QueryAsync(new SearchDiagnosesDelegate(QueryScripts, userKey, criteria), token);
+        ///// <inheritdoc/>
+        //public async Task<TaskEntity> SearchUserTasksAsync(Guid userKey, CancellationToken token)
+        //{
+        //    var userTasks = await QueryAsync(new SearchDiagnosesDelegate(QueryScripts, userKey, criteria), token);
          
-            return (userTasks, pagedKeys.TotalCount);
-        }
+        //    return (userTasks, pagedKeys.TotalCount);
+        //}
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<TaskEntity>> GetDiagnosesAsync(Guid userKey, CancellationToken token, bool? includeRemoved = false)
+        public async Task<IEnumerable<UserTask>> GetUserTasksAsync(Guid userKey, CancellationToken token, bool? includeRemoved = false)
         {
             var entities = await QueryAsync(new GetUserTaskDelegate(QueryScripts, userKey, includeRemoved),
                 token);

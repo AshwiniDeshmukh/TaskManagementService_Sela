@@ -32,7 +32,10 @@ namespace TaskManagementService.Controllers
         public async Task<IActionResult> CreateUserTask([FromRoute] Guid userKey, CreateUserTask createUserTaskRequest,
             CancellationToken token)
         {
-            var userTaskKey = await _service.CreateUserTask(userKey, createUserTaskRequest, token);
+            var userTaskKey = await _service.CreateUserTask(userKey,
+                new CreateUserTaskInfo { Title=createUserTaskRequest.Title, TaskDescription=createUserTaskRequest.TaskDescription, TaskStatusType=createUserTaskRequest.TaskStatusType
+                , TaskType=createUserTaskRequest.TaskType, TaskDueDate=createUserTaskRequest.TaskDueDate
+            } , token);
 
             return userTaskKey;
 
@@ -49,7 +52,15 @@ namespace TaskManagementService.Controllers
         public async Task<IActionResult> UpdateUserTask([FromRoute] Guid userTaskKey, CreateUserTask createUserTaskRequest,
             CancellationToken token)
         {
-           await _service.UpdateUserTask(userTaskKey, createUserTaskRequest, token);
+           await _service.UpdateUserTask(userTaskKey, new UpdateUserTaskInfo
+           {
+               Title = createUserTaskRequest.Title,
+               TaskDescription = createUserTaskRequest.TaskDescription,
+               TaskStatusType = createUserTaskRequest.TaskStatusType
+                ,
+               TaskType = createUserTaskRequest.TaskType,
+               TaskDueDate = createUserTaskRequest.TaskDueDate
+           }, token);
 
             return "";
 
