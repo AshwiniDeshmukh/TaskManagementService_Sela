@@ -1,0 +1,8 @@
+C:\Users\AshwiniD2.MUMBAI1\Documents\GitHub\TaskManagementService_Sela\TaskManagementService\TaskManagementService\obj\Debug\net5.0\TaskManagementService.csproj.AssemblyReference.cache
+C:\Users\AshwiniD2.MUMBAI1\Documents\GitHub\TaskManagementService_Sela\TaskManagementService\TaskManagementService\obj\Debug\net5.0\TaskManagementService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AshwiniD2.MUMBAI1\Documents\GitHub\TaskManagementService_Sela\TaskManagementService\TaskManagementService\obj\Debug\net5.0\TaskManagementService.AssemblyInfoInputs.cache
+C:\Users\AshwiniD2.MUMBAI1\Documents\GitHub\TaskManagementService_Sela\TaskManagementService\TaskManagementService\obj\Debug\net5.0\TaskManagementService.AssemblyInfo.cs
+C:\Users\AshwiniD2.MUMBAI1\Documents\GitHub\TaskManagementService_Sela\TaskManagementService\TaskManagementService\obj\Debug\net5.0\TaskManagementService.csproj.CoreCompileInputs.cache
+C:\Users\AshwiniD2.MUMBAI1\Documents\GitHub\TaskManagementService_Sela\TaskManagementService\TaskManagementService\obj\Debug\net5.0\TaskManagementService.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\AshwiniD2.MUMBAI1\Documents\GitHub\TaskManagementService_Sela\TaskManagementService\TaskManagementService\obj\Debug\net5.0\TaskManagementService.RazorAssemblyInfo.cache
+C:\Users\AshwiniD2.MUMBAI1\Documents\GitHub\TaskManagementService_Sela\TaskManagementService\TaskManagementService\obj\Debug\net5.0\TaskManagementService.RazorAssemblyInfo.cs
