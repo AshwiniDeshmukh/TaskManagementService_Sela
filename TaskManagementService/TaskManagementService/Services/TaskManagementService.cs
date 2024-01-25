@@ -39,7 +39,7 @@ namespace TaskManagementService
         //}
 
         /// <inheritdoc/>
-        public  IEnumerable<UserTask> GetUserTasks(Guid userKey, CancellationToken token, bool? includeRemoved = null)
+        public IEnumerable<UserTask> GetUserTasks(Guid userKey, CancellationToken token, bool? includeRemoved = null)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace TaskManagementService
         }
 
         /// <inheritdoc/>
-        public  Guid CreateUserTask(Guid userKey, CreateUserTaskInfo info, CancellationToken token)
+        public int CreateUserTask(Guid userKey, CreateUserTaskInfo info, CancellationToken token)
         {
             
             try

@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace WCTS.PatientService.Repositories.Impl
     {
 
         private readonly Database _database;
+
         public IEnumerable<Task> Tasks { get; set; }
         /// <summary>
         /// This repo class does use the PAC BaseRepository (IQueryCallFactory)
@@ -20,7 +22,7 @@ namespace WCTS.PatientService.Repositories.Impl
         public TaskManagementRepository(Database db)
             
         {
-            _database = db;   
+            _database = db;
         }
 
         ///// <inheritdoc/>
@@ -32,19 +34,19 @@ namespace WCTS.PatientService.Repositories.Impl
         //}
 
         /// <inheritdoc/>
-        public  IEnumerable<UserTask> GetUserTasksAsync(Guid userKey, CancellationToken token, bool? includeRemoved = false)
+        public  IEnumerable<TaskManagementService.UserTask> GetUserTasksAsync(Guid userKey, CancellationToken token, bool? includeRemoved = false)
         {
             Tasks =_database.Tasks.ToList();
-            return new List<UserTask> { };
+            return new List<TaskManagementService.UserTask> { };
         }
 
         /// <inheritdoc/>
-        public  Guid CreateUserTaskAsync(Guid userKey, CreateUserTaskInfo info, CancellationToken token)
+        public  int CreateUserTaskAsync(Guid userKey, CreateUserTaskInfo info, CancellationToken token)
         {
             Task task = new() { Title = info.Title, Description=info.TaskDescription };
             _database.Tasks.Add(task);
-             _database.SaveChangesAsync();
-            return new Guid {  };
+            _database.SaveChangesAsync();
+            return _database.Tasks.FirstOrDefault().ID;
         }
 
         /// <inheritdoc/>

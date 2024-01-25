@@ -12,6 +12,8 @@ namespace TaskManagementService.Controllers
     /// Manages operations related to Task for an user.
     /// </summary>
 
+    [Route(RouteConstants.TaskManagement.Root)]
+    [ApiController]
     public class TaskManagementController : Controller
     {
         private readonly ITaskManagementService _service;
@@ -31,7 +33,7 @@ namespace TaskManagementService.Controllers
         /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
         /// <returns>A list of Tasks related to the User.</returns>
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public  Guid CreateUserTask([FromRoute] Guid userKey, CreateUserTask createUserTaskRequest,
+        public int CreateUserTask([FromRoute] Guid userKey, CreateUserTask createUserTaskRequest,
             CancellationToken token)
         {
             var userTaskKey =  _service.CreateUserTask(userKey,
@@ -71,11 +73,11 @@ namespace TaskManagementService.Controllers
         }
 
         [HttpGet]
-        [Route("UserTask/{userKey:guid}")]
+        [Route("usertask/{userKey:guid}")]
         /// <summary>
         /// Retrieves list of Tasks associated with an User. 
+        /// /// <param name="userKey">The unique identifier of the user to fetch list of Tasks for.</param>
         /// </summary>
-        /// <param name="userKey">The unique identifier of the user to fetch list of Tasks for.</param>
         /// <returns>A list of Tasks related to the User.</returns>
         public IEnumerable<UserTask> GetUserTasks([FromRoute] Guid userKey)
         {

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TaskManagementService.Models;
+using WCTS.PatientService.Repositories.Impl;
 
 namespace TaskManagementService
 {
@@ -28,9 +29,21 @@ namespace TaskManagementService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddControllers();
+            // Services
+            services.AddTransient<ITaskManagementService, TaskManagementService>();
+            //Repositories
+            services.AddTransient<ITaskManagementRepository, TaskManagementRepository>();
+            //Database
+            //Repositories
+            services.AddTransient<IDatabase, Database>();
+
             services.AddDbContext<Database>(options => {
                 options.UseSqlServer(ConnectionString);
             });
+
+            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +70,7 @@ namespace TaskManagementService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }

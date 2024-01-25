@@ -27,7 +27,7 @@ namespace TaskManagementService
         /// <summary>
         /// The description of the task.
         /// </summary>
-        [Required]
+        
         public DateTime TaskDueDate { get; set; }
 
         /// <summary>

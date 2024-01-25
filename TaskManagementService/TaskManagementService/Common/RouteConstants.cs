@@ -4,7 +4,7 @@
     {
         public class TaskManagement
         {
-            public const string Root = "TaskManagement";
+            public const string Root = "api/taskmanagement";
 
             public const string UserTask = "TaskManagement/userTask";
 

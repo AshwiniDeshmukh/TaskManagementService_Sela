@@ -34,7 +34,7 @@ namespace TaskManagementService
         /// <param name="info">Information about the new task</param>
         /// <param name="token">This is provided by the framework to notify when a request is cancelled.</param>
         /// <returns>Task Key of the newly user Task</returns>
-        Guid CreateUserTask(Guid userKey, CreateUserTaskInfo info, CancellationToken token);
+        int CreateUserTask(Guid userKey, CreateUserTaskInfo info, CancellationToken token);
 
         /// <summary>
         /// Updates the task with the given key.
