@@ -7,7 +7,7 @@ namespace TaskManagementService
     /// </summary>
     public class UserTask
     {
-        public UserTask(Guid userTaskKey,string title, string description,TaskStatusType taskStatus, TaskType taskType , DateTime taskDueDate)
+        public UserTask(string title, string description,TaskStatusType taskStatus, TaskType taskType , DateTime taskDueDate)
         {
             TaskType = taskType;
             Title = title;

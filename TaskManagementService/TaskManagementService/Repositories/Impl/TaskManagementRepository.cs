@@ -34,10 +34,10 @@ namespace WCTS.PatientService.Repositories.Impl
         //}
 
         /// <inheritdoc/>
-        public  IEnumerable<TaskManagementService.UserTask> GetUserTasksAsync(Guid userKey, CancellationToken token, bool? includeRemoved = false)
+        public  IEnumerable<TaskManagementService.Models.Task> GetUserTasksAsync(Guid userKey, CancellationToken token, bool? includeRemoved = false)
         {
             Tasks =_database.Tasks.ToList();
-            return new List<TaskManagementService.UserTask> { };
+            return Tasks;
         }
 
         /// <inheritdoc/>

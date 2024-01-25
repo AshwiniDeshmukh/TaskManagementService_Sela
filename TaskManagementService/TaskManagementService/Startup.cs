@@ -39,7 +39,7 @@ namespace TaskManagementService
             services.AddTransient<IDatabase, Database>();
 
             services.AddDbContext<Database>(options => {
-                options.UseSqlServer(ConnectionString);
+                options.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=TaskDB; Encrypt=False;");
             });
 
             
@@ -47,7 +47,7 @@ namespace TaskManagementService
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Database db)
         {
             if (env.IsDevelopment())
             {
@@ -72,6 +72,8 @@ namespace TaskManagementService
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
+            db.Database.EnsureCreated();
+
         }
     }
 }

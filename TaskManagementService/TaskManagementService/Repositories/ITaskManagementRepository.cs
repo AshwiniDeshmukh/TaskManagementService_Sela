@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
+using TaskManagementService.Models;
 
 namespace TaskManagementService
 {
@@ -23,7 +23,7 @@ namespace TaskManagementService
         /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
         /// <param name="includeRemoved">Indicates if removed records should be included in results.</param>
         /// <returns>The tasks with the given keys.</returns>
-        IEnumerable<UserTask> GetUserTasksAsync(Guid userKey, CancellationToken token, bool? includeRemoved = false);
+        IEnumerable<Task> GetUserTasksAsync(Guid userKey, CancellationToken token, bool? includeRemoved = false);
 
         /// <summary>
         /// Creates a task for the us with the given key.

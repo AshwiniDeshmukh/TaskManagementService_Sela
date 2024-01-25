@@ -1,10 +1,8 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
+using TaskManagementService.Models;
 
 namespace TaskManagementService
 {
@@ -39,7 +37,7 @@ namespace TaskManagementService
         //}
 
         /// <inheritdoc/>
-        public IEnumerable<UserTask> GetUserTasks(Guid userKey, CancellationToken token, bool? includeRemoved = null)
+        public IEnumerable<Task> GetUserTasks(Guid userKey, CancellationToken token, bool? includeRemoved = null)
         {
             try
             {

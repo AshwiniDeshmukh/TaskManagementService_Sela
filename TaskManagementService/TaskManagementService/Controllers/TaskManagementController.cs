@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
+using TaskManagementService.Models;
 
 namespace TaskManagementService.Controllers
 {
@@ -55,10 +55,10 @@ namespace TaskManagementService.Controllers
         /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
         /// <returns>A list of Tasks related to the User.</returns>
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<Boolean> UpdateUserTask([FromRoute] Guid userTaskKey, CreateUserTask createUserTaskRequest,
+        public Boolean UpdateUserTask([FromRoute] Guid userTaskKey, CreateUserTask createUserTaskRequest,
             CancellationToken token)
         {
-           await _service.UpdateUserTask(userTaskKey, new UpdateUserTaskInfo
+            _service.UpdateUserTask(userTaskKey, new UpdateUserTaskInfo
            {
                Title = createUserTaskRequest.Title,
                TaskDescription = createUserTaskRequest.TaskDescription,
@@ -79,7 +79,7 @@ namespace TaskManagementService.Controllers
         /// /// <param name="userKey">The unique identifier of the user to fetch list of Tasks for.</param>
         /// </summary>
         /// <returns>A list of Tasks related to the User.</returns>
-        public IEnumerable<UserTask> GetUserTasks([FromRoute] Guid userKey)
+        public IEnumerable<Task> GetUserTasks([FromRoute] Guid userKey)
         {
             CancellationToken Text = new CancellationToken() ;
             var userTasks =  _service.GetUserTasks(userKey, Text);
@@ -96,10 +96,10 @@ namespace TaskManagementService.Controllers
         /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
         /// <returns>A list of Tasks related to the User.</returns>
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<Boolean> DeleteUserTask([FromRoute] Guid userTaskKey,
+        public Boolean DeleteUserTask([FromRoute] Guid userTaskKey,
             CancellationToken token)
         {
-            await _service.RemoveUserTask(userTaskKey, token);
+             _service.RemoveUserTask(userTaskKey, token);
 
             return true;
 
@@ -113,10 +113,10 @@ namespace TaskManagementService.Controllers
         /// <param name="token">This is provided by the framework to notify when a request is canceled.</param>
         /// <returns>A list of Tasks related to the User.</returns>
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<Boolean> RestoreUserTask([FromRoute] Guid userTaskKey,
+        public  Boolean RestoreUserTask([FromRoute] Guid userTaskKey,
             CancellationToken token)
         {
-            await _service.RestoreUserTask(userTaskKey, token);
+             _service.RestoreUserTask(userTaskKey, token);
 
             return true;
 

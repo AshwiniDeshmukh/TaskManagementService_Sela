@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
+using TaskManagementService.Models;
 
 namespace TaskManagementService
 {
@@ -25,7 +25,7 @@ namespace TaskManagementService
         /// <param name="includeRemoved">Indicates if a removed patient allergy should be returned if available.</param>
         /// <param name="token">This is provided by the framework to notify when a request is cancelled.</param>
         /// <returns>returns Task of <see cref="UserTask"/></returns>
-        IEnumerable<UserTask> GetUserTasks(Guid userKey, CancellationToken token, bool? includeRemoved = null);
+        IEnumerable<Task> GetUserTasks(Guid userKey, CancellationToken token, bool? includeRemoved = null);
 
         /// <summary>
         /// Creates a task with the given info
